@@ -95,7 +95,44 @@ public Conexion(){
         }
     }
             
+    public static int updateAeropuerto (Aeropuertos miAeropuerto) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String update = " update Aeropuertos  " +
+                                   " set NombreAeropuerto = ' " + miAeropuerto.getNombreAeropuerto()+"', "+ 
+                                    "  Ciudad = '"+miAeropuerto.getCiudad()+"', "+
+                                    " Pais = '" +miAeropuerto.getPais()+ "' "+
+                                   " WHERE AeropuertoID = " + miAeropuerto.getAeropuertoID();
+
+        JOptionPane.showConfirmDialog(null,update);
+       listaafectadas = sql.executeUpdate(update);
+        return listaafectadas;
+    }
     
+     public static Aeropuertos obtenerAeropuerto (String ID) throws SQLException{
+        try{
+                Statement sql = (Statement) Conexion.getConnection().createStatement();
+                //crear una variable tipo string
+                String consultas = " SELECT *  " +
+                                              " FROM Aeropuertos  "+
+                                              " WHERE AeropuertosID = " + ID;
+         
+                        //ejecutar la consulta y llenar los resultados obtenidos
+                        ResultSet rs = sql.executeQuery(consultas);
+                        Aeropuertos Encontrado = new Aeropuertos();
+                        while (rs.next()){
+                          Encontrado.setAeropuertoID(rs.getInt(1));
+                          Encontrado.setNombre_Completo(rs.getString(2));
+                          Encontrado.setUsuario(rs.getString(3));
+                          Encontrado.setClave(rs.getString(4));
+                          Encontrado.setTipo_Rol(rs.getInt(5));
+                        }
+                        return Encontrado;
+                }catch (SQLServerException e){
+                    JOptionPane.showMessageDialog(null, e.toString());
+                    return  null;
+            }
+    }
     
     
 }

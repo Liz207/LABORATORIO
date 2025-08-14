@@ -23,6 +23,9 @@ public class Aeropuertos {
         this.Pais = Pais;
     }
 
+    public Aeropuertos() {
+    }
+
     public int getAeropuertoID() {
         return AeropuertoID;
     }
