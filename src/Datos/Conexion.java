@@ -122,10 +122,10 @@ public Conexion(){
                         Aeropuertos Encontrado = new Aeropuertos();
                         while (rs.next()){
                           Encontrado.setAeropuertoID(rs.getInt(1));
-                          Encontrado.setNombre_Completo(rs.getString(2));
-                          Encontrado.setUsuario(rs.getString(3));
-                          Encontrado.setClave(rs.getString(4));
-                          Encontrado.setTipo_Rol(rs.getInt(5));
+                          Encontrado.setCodigoIATA(rs.getString(2));
+                          Encontrado.setNombreAeropuerto(rs.getString(3));
+                          Encontrado.setCiudad(rs.getString(4));
+                          Encontrado.setPais(rs.getString(5));
                         }
                         return Encontrado;
                 }catch (SQLServerException e){
@@ -134,5 +134,18 @@ public Conexion(){
             }
     }
     
-    
+        public static int inserteAeropuerto(Aeropuertos miAeropuerto) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String insertar = "INSERT INTO Tipos_De_Incidencia '" +
+                      "VALUES(" + miAeropuerto.getAeropuertoID()+ ", " +
+                                             miAeropuerto.getCodigoIATA()+ "', '" +
+                                             miAeropuerto.getCiudad()+ "', '" +
+                                            miAeropuerto.getPais().trim() +   "')";
+        JOptionPane.showConfirmDialog(null, insertar);
+       listaafectadas = sql.executeUpdate(insertar);
+        return listaafectadas;
+    }
+        
+        
 }
