@@ -244,4 +244,26 @@ public Conexion(){
        listaafectadas = sql.executeUpdate(delete);
         return listaafectadas;
 }
+                  
+                  
+  public static String nombreAeropuerto (int ID) throws  SQLException{
+            String resul="";
+            //SQL requiere el uso de try y catchnjm
+            try{
+                Statement sql = (Statement) Conexion.getConnection().createStatement();
+                //crear una variable tipo string
+                String consultas = "  Select  NombreAeropuerto  "+
+                                                  "  From Aeropuertos  "+
+                                                  "  Where AeropuertoID= "+ID;
+                        //ejecutar la consulta y llenar los resultados obtenidos
+                        ResultSet rs = sql.executeQuery(consultas);
+                        while (rs.next()){
+                          //resul = Integer.valueOf(rs.getString(1) );
+                          resul = rs.getString(1);
+                        }
+                }catch (SQLServerException e){
+                    JOptionPane.showMessageDialog(null, e.toString());
+            }
+            return resul;
+    }
 }
