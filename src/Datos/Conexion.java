@@ -43,6 +43,8 @@ public Conexion(){
             return null;
         }
         
+            }
+    
         public static int siguienteAeropuerto() throws SQLException{
         int resultado = 1;
          try{
@@ -63,12 +65,22 @@ public Conexion(){
     }
         
         
-        
-        
-        
-        
-        
+          public static int insertAeropuerto(Aeropuertos miAeropuerto) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String insertar = "INSERT INTO Aeropuertos " +
+                                    "VALUES(" + miAeropuerto.getAeropuertoID()+ ", " +
+                                    "'" + miAeropuerto.getCodigoIATA().trim() + "', " +
+                                    "'" + miAeropuerto.getNombreAeropuerto().trim() + "', " +
+                                    "'" + miAeropuerto.getCiudad().trim() + "', " +
+                                    "'" + miAeropuerto.getPais().trim() + ")";
+        JOptionPane.showConfirmDialog(null, insertar);
+       listaafectadas = sql.executeUpdate(insertar);
+        return listaafectadas;
     }
+    
+        
+            
     
     
     
