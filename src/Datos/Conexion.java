@@ -138,7 +138,7 @@ public Conexion(){
         int listaafectadas = 0;
         Statement sql = (Statement) Conexion.getConnection().createStatement();
         String insertar = "INSERT INTO Tipos_De_Incidencia '" +
-                      "VALUES(" + miAeropuerto.getAeropuertoID()+ ", " +
+                      "VALUES(" + miAeropuerto.getAeropuertoID()+ ", '" +
                                              miAeropuerto.getCodigoIATA()+ "', '" +
                                              miAeropuerto.getCiudad()+ "', '" +
                                             miAeropuerto.getPais().trim() +   "')";
@@ -147,5 +147,48 @@ public Conexion(){
         return listaafectadas;
     }
         
+   
         
+                 public static ResultSet listarAeropuertos () throws SQLException{
+         try{
+            //declarar la conexion a sqlServer
+            Statement sql =(Statement) Conexion.getConnection().createStatement();
+            //crear variable con sentencia o scrip sql
+            String consulta="  Select *  "+
+                                        "  From Aeropuertos  ";
+            //ejecutar la consulta y llenar una estructura con el o los resultados obtenidos
+            ResultSet rs = sql.executeQuery(consulta); 
+            return rs;
+        }catch (SQLServerException e){
+            JOptionPane.showMessageDialog(null, e.toString() );
+            return null;
+        }
+    } 
+                 
+          public static int updateAeropuertos (Aeropuertos miAeropuerto) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String update = "UPDATE Aeropuertos SET "
+                                + "NombreAeropuerto = '" + miAeropuerto.getNombreAeropuerto()+ "', "
+                                + "Ciudad = '" + miAeropuerto.getCiudad()+ "', "
+                                + "Pais = '" + miAeropuerto.getPais()+ "' "
+                                + "WHERE AeropuertoID = " + miAeropuerto.getAeropuertoID();
+
+        JOptionPane.showConfirmDialog(null,update);
+       listaafectadas = sql.executeUpdate(update);
+        return listaafectadas;
+    }   
+          
+              public static int borrarAeropuerto(int ID) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String delete = " delete from Aeropuertos  " +
+                                   " WHERE AeropuertoID = " + ID;
+
+        JOptionPane.showConfirmDialog(null,delete);
+       listaafectadas = sql.executeUpdate(delete);
+        return listaafectadas;
+    }    
+              
+    
 }
