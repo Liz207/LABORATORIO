@@ -266,4 +266,103 @@ public Conexion(){
             }
             return resul;
     }
+  
+  //PASAJEROS
+          public static int siguientePasajero() throws SQLException{
+        int resultado = 1;
+         try{
+                Statement sql = (Statement) Conexion.getConnection().createStatement();
+                //crear una variable tipo string
+                String consultas = " SELECT max (PasajeroID) as Id_Pasajero  " +
+                                              " FROM Pasajeros  ";
+         
+                        //ejecutar la consulta y llenar los resultados obtenidos
+                        ResultSet rs = sql.executeQuery(consultas);
+                        while (rs.next()){
+                          resultado = (rs.getInt(1)) +1;
+                        }
+                }catch (SQLServerException e){
+                    JOptionPane.showMessageDialog(null, e.toString());
+            }
+        return resultado;
+    }
+        
+        
+          public static int insetPasajero(Pasajeros miPasajero) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String insertar = "INSERT INTO Pasajeros " +
+                                    "VALUES(" + miPasajero.getPasajeroID()+ ", " +
+                                    "'" + miPasajero.getNumeroDocumento().trim() + "', " +
+                                    "'" + miPasajero.getNombreCompleto()+ "', " +
+                                    "'" + miPasajero.getFechaNacimiento()+ "', " +
+                                    "'" + miPasajero.getTelefono()+ "')";
+        JOptionPane.showConfirmDialog(null, insertar);
+       listaafectadas = sql.executeUpdate(insertar);
+        return listaafectadas;
+    }
+    
+            public static ResultSet listarPasajero () throws SQLException{
+         try{
+            //declarar la conexion a sqlServer
+            Statement sql =(Statement) Conexion.getConnection().createStatement();
+            //crear variable con sentencia o scrip sql
+            String consulta="  Select *  "+
+                                        "  From Pasajeros  ";
+            //ejecutar la consulta y llenar una estructura con el o los resultados obtenidos
+            ResultSet rs = sql.executeQuery(consulta); 
+            return rs;
+        }catch (SQLServerException e){
+            JOptionPane.showMessageDialog(null, e.toString() );
+            return null;
+        }
+    }
+            
+    public static int updatePasajero (Pasajeros miPasajero) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String update = " update Pasajeros  " +
+                                   " set NombreCompleto =  '" + miPasajero.getNombreCompleto()+"', "+ 
+                                    "  Telefono = "+miPasajero.getTelefono()+"' "+
+                                   " WHERE PasajeroID = " + miPasajero.getPasajeroID();
+
+        JOptionPane.showConfirmDialog(null,update);
+       listaafectadas = sql.executeUpdate(update);
+        return listaafectadas;
+    }
+    
+     public static Pasajeros obtenerPasajero (String ID) throws SQLException{
+        try{
+                Statement sql = (Statement) Conexion.getConnection().createStatement();
+                //crear una variable tipo string
+                String consultas = " SELECT *  " +
+                                              " FROM Pasajeros  "+
+                                              " WHERE PasajeroID = " + ID;
+         
+                        //ejecutar la consulta y llenar los resultados obtenidos
+                        ResultSet rs = sql.executeQuery(consultas);
+                        Pasajeros Encontrado = new Pasajeros();
+                        while (rs.next()){
+                          Encontrado.setPasajeroID(rs.getInt(1));
+                          Encontrado.setNumeroDocumento(rs.getString(2));
+                          Encontrado.setNombreCompleto(rs.getString(3));
+                          Encontrado.setFechaNacimiento(rs.getDate(4));
+                          Encontrado.setTelefono(rs.getString(5));
+                        }
+                        return Encontrado;
+                }catch (SQLServerException e){
+                    JOptionPane.showMessageDialog(null, e.toString());
+                    return  null;
+            }
+    }
+                  public static int borrarPasajero(int ID) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String delete = " delete from Pasajeros  " +
+                                   " WHERE PasajeroID = " + ID;
+
+        JOptionPane.showConfirmDialog(null,delete);
+       listaafectadas = sql.executeUpdate(delete);
+        return listaafectadas;
+}
 }
