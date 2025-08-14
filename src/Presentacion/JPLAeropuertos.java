@@ -3,7 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Presentacion;
-
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import Datos.Conexion;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import  java.sql.ResultSet;
+import net.proteanit.sql.DbUtils;
+import Datos.Aeropuertos;
+import Datos.Estructura;
 /**
  *
  * @author irvin
@@ -16,7 +26,14 @@ public class JPLAeropuertos extends javax.swing.JPanel {
     public JPLAeropuertos() {
         initComponents();
     }
-
+            private void limpiar()
+    {
+        txtIDAeropuerto.setText("");
+        txtCodigoIATA.setText("");
+        txtNomAeropuerto.setText("");
+        txtCiudad.setText("");
+        txtPais.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +43,258 @@ public class JPLAeropuertos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 737, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-        );
+        btnBuscar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnCosultar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tlbAeropuerto = new javax.swing.JTable();
+        lblIDAeropuerto = new javax.swing.JLabel();
+        lblCodIATA = new javax.swing.JLabel();
+        lblNomAeropuerto = new javax.swing.JLabel();
+        lblCiudad = new javax.swing.JLabel();
+        lblPais = new javax.swing.JLabel();
+        txtIDAeropuerto = new javax.swing.JTextField();
+        txtCodigoIATA = new javax.swing.JTextField();
+        txtNomAeropuerto = new javax.swing.JTextField();
+        txtCiudad = new javax.swing.JTextField();
+        txtPais = new javax.swing.JTextField();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnBuscar.setFont(new java.awt.Font("Racer", 0, 14)); // NOI18N
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 110, 27));
+
+        btnNuevo.setFont(new java.awt.Font("Racer", 0, 14)); // NOI18N
+        btnNuevo.setText("NUEVO");
+        btnNuevo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 110, 27));
+
+        btnCosultar.setFont(new java.awt.Font("Racer", 0, 14)); // NOI18N
+        btnCosultar.setText("CONSULTAR");
+        btnCosultar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCosultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCosultarActionPerformed(evt);
+            }
+        });
+        add(btnCosultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 210, 110, 27));
+
+        btnGuardar.setFont(new java.awt.Font("Racer", 0, 14)); // NOI18N
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 110, 27));
+
+        btnBorrar.setFont(new java.awt.Font("Racer", 0, 14)); // NOI18N
+        btnBorrar.setText("BORRAR");
+        btnBorrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+        add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 110, 27));
+
+        tlbAeropuerto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tlbAeropuerto);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 610, 140));
+
+        lblIDAeropuerto.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblIDAeropuerto.setText("IDENTIFICADOR AEROPUERTO");
+        add(lblIDAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 118, -1, 30));
+
+        lblCodIATA.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblCodIATA.setText("CODIGO IATA");
+        add(lblCodIATA, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 198, -1, 30));
+
+        lblNomAeropuerto.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblNomAeropuerto.setText("NOMBRE AEROPUERTO");
+        add(lblNomAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, 40));
+
+        lblCiudad.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblCiudad.setText("CIUDAD");
+        add(lblCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 308, -1, 30));
+
+        lblPais.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblPais.setText("PAIS");
+        add(lblPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 40, 30));
+
+        txtIDAeropuerto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDAeropuertoActionPerformed(evt);
+            }
+        });
+        add(txtIDAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 110, -1));
+        add(txtCodigoIATA, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 110, -1));
+        add(txtNomAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 110, -1));
+        add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 110, -1));
+        add(txtPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        String ID = "";
+        if (  ID.equals(txtIDAeropuerto.getText() ) ){
+            JOptionPane.showMessageDialog(null,
+                "Debe digitar algo en el campo de Identificador",
+                "Mensaje Importante",
+                JOptionPane.ERROR_MESSAGE);
+        } else{
+            try{
+                Aeropuertos miAeropuerto = Conexion.obtenerAeropuerto(txtIDAeropuerto.getText() );
+                txtCodigoIATA.setText(miAeropuerto.getCodigoIATA());
+                txtNomAeropuerto.setText(miAeropuerto.getNombreAeropuerto());
+                txtCiudad.setText(miAeropuerto.getCodigoIATA());
+                txtPais.setText(miAeropuerto.getPais());
+            }catch (SQLException ex){
+                Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        try {
+            int siguiente = Conexion.siguienteAeropuerto();
+            txtIDAeropuerto.setText(String.valueOf(siguiente) );
+        } catch (SQLException ex) {
+            Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnCosultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCosultarActionPerformed
+        ResultSet resultad;
+        try {
+            resultad = Conexion.listarAeropuerto();
+            tlbAeropuerto.setModel(DbUtils.resultSetToTableModel(resultad));
+        } catch (SQLException ex) {
+            Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }//GEN-LAST:event_btnCosultarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+        //-- Guardar asume guardar nuevo y modificar
+
+        //-- Creamos una copia del objeto y le llenamos los datos con el formulario
+        Aeropuertos miAeropuerto = new Aeropuertos();
+        miAeropuerto.setAeropuertoID(Integer.parseInt(txtIDAeropuerto.getText()));
+        miAeropuerto.setCodigoIATA(txtCodigoIATA.getText());
+        miAeropuerto.setNombreAeropuerto(txtNomAeropuerto.getText());
+        miAeropuerto.setCiudad(txtCiudad.getText());
+        miAeropuerto.setPais(txtPais.getText());
+        int indice = 0;
+
+        try {
+            Aeropuertos Consultada = Conexion.obtenerAeropuerto(txtIDAeropuerto.getText() );
+            if (Consultada != null){
+                indice = Consultada.getAeropuertoID();
+            }
+            else {
+                indice = 0;
+            }
+        } catch (SQLException ex) {
+            indice = 0;
+        }
+
+        //---Insertar o Modificar en la tabla
+        if (indice == 0){
+            try {
+
+                if (Conexion.insertAeropuerto(miAeropuerto) != 0) {
+                    JOptionPane.showMessageDialog(null, "Aeropuerto Guardado" );
+                }
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.toString() );
+            }
+        }else{
+            try {
+                if (Conexion.updateAeropuerto(miAeropuerto) != 0) {
+                    JOptionPane.showMessageDialog(null, "Aeropuerto Modificado" );
+                }
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.toString() );
+            }
+
+        }
+        btnCosultar.doClick();
+        limpiar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        String ID = "";
+        if (  ID.equals(txtIDAeropuerto.getText() ) ){
+            JOptionPane.showMessageDialog(null,
+                "Debe digitar algo en el campo de Identificador",
+                "Mensaje Importante",
+                JOptionPane.ERROR_MESSAGE);
+        } else{
+            try{
+                if (Conexion.borrarAeropuerto(Integer.parseInt(txtIDAeropuerto.getText())) != 0) {
+                    JOptionPane.showMessageDialog(null, "Aeropuerto Borrado" );
+                }
+            }catch (SQLException ex) {
+                Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        btnCosultar.doClick();
+        limpiar();
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void txtIDAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDAeropuertoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDAeropuertoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCosultar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCiudad;
+    private javax.swing.JLabel lblCodIATA;
+    private javax.swing.JLabel lblIDAeropuerto;
+    private javax.swing.JLabel lblNomAeropuerto;
+    private javax.swing.JLabel lblPais;
+    private javax.swing.JTable tlbAeropuerto;
+    private javax.swing.JTextField txtCiudad;
+    private javax.swing.JTextField txtCodigoIATA;
+    private javax.swing.JTextField txtIDAeropuerto;
+    private javax.swing.JTextField txtNomAeropuerto;
+    private javax.swing.JTextField txtPais;
     // End of variables declaration//GEN-END:variables
 }
