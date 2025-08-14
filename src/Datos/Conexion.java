@@ -79,7 +79,21 @@ public Conexion(){
         return listaafectadas;
     }
     
-        
+            public static ResultSet listarAeropuerto () throws SQLException{
+         try{
+            //declarar la conexion a sqlServer
+            Statement sql =(Statement) Conexion.getConnection().createStatement();
+            //crear variable con sentencia o scrip sql
+            String consulta="  Select *  "+
+                                        "  From Aeropuertos  ";
+            //ejecutar la consulta y llenar una estructura con el o los resultados obtenidos
+            ResultSet rs = sql.executeQuery(consulta); 
+            return rs;
+        }catch (SQLServerException e){
+            JOptionPane.showMessageDialog(null, e.toString() );
+            return null;
+        }
+    }
             
     
     
