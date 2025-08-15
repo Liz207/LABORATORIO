@@ -190,7 +190,7 @@ public class JPLVuelos extends javax.swing.JPanel {
                 txtNomAeroDes.setText(String.valueOf(miVuelo.getAeropuertoDestinoID()));
                 jdcFechaSalida.setDate(new java.util.Date(miVuelo.getFechaSalida().getTime()));
             }catch (SQLException ex){
-                Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JPLVuelos.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

@@ -3,7 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Presentacion;
-
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import Datos.Conexion;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import  java.sql.ResultSet;
+import net.proteanit.sql.DbUtils;
+import Datos.Pasajeros;
 /**
  *
  * @author irvin
@@ -16,7 +25,14 @@ public class JPLPasajeros extends javax.swing.JPanel {
     public JPLPasajeros() {
         initComponents();
     }
-
+            private void limpiar()
+    {
+        txtIDPasajero.setText("");
+        txtNumeroDoc.setText("");
+        txtNomCompleto.setText("");
+        txtTelefono.setText("");
+        jdcFechaNacimiento.setDate(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,6 +49,16 @@ public class JPLPasajeros extends javax.swing.JPanel {
         btnBorrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tlbPasajeros = new javax.swing.JTable();
+        lblNumeroDoc = new javax.swing.JLabel();
+        lblNombreCompleto = new javax.swing.JLabel();
+        lblFechaNacimiento = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
+        lblIDPasajero = new javax.swing.JLabel();
+        txtIDPasajero = new javax.swing.JTextField();
+        txtNumeroDoc = new javax.swing.JTextField();
+        txtNomCompleto = new javax.swing.JTextField();
+        jdcFechaNacimiento = new com.toedter.calendar.JDateChooser();
+        txtTelefono = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -100,25 +126,50 @@ public class JPLPasajeros extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tlbPasajeros);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 610, 140));
+
+        lblNumeroDoc.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblNumeroDoc.setText("NUMERO DOCUMENTO");
+        add(lblNumeroDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, 30));
+
+        lblNombreCompleto.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblNombreCompleto.setText("NOMBRE COMPLETO");
+        add(lblNombreCompleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, 30));
+
+        lblFechaNacimiento.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblFechaNacimiento.setText("FECHA NACIMIENTO");
+        add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, 30));
+
+        lblTelefono.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblTelefono.setText("TELEFONO");
+        add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, -1, 30));
+
+        lblIDPasajero.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblIDPasajero.setText("IDENTIFICADOR PASAJERO");
+        add(lblIDPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 30));
+        add(txtIDPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 82, 120, 30));
+        add(txtNumeroDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 142, 120, 30));
+        add(txtNomCompleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 192, 120, 30));
+        add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, 130, 30));
+        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 312, 120, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         String ID = "";
-        if (  ID.equals(txtIDAeropuerto.getText() ) ){
+        if (  ID.equals(txtIDPasajero.getText() ) ){
             JOptionPane.showMessageDialog(null,
                 "Debe digitar algo en el campo de Identificador",
                 "Mensaje Importante",
                 JOptionPane.ERROR_MESSAGE);
         } else{
             try{
-                Aeropuertos miAeropuerto = Conexion.obtenerAeropuerto(txtIDAeropuerto.getText() );
-                txtCodigoIATA.setText(miAeropuerto.getCodigoIATA());
-                txtNomAeropuerto.setText(miAeropuerto.getNombreAeropuerto());
-                txtCiudad.setText(miAeropuerto.getCodigoIATA());
-                txtPais.setText(miAeropuerto.getPais());
+                Pasajeros miPasajero = Conexion.obtenerPasajero(txtIDPasajero.getText() );
+                txtNumeroDoc.setText(miPasajero.getNumeroDocumento());
+                txtNomCompleto.setText(miPasajero.getNombreCompleto());
+                jdcFechaNacimiento.setDate(new java.util.Date(miPasajero.getFechaNacimiento().getTime()));
+                txtTelefono.setText(miPasajero.getTelefono());
             }catch (SQLException ex){
-                Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JPLPasajeros.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -126,20 +177,20 @@ public class JPLPasajeros extends javax.swing.JPanel {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         try {
-            int siguiente = Conexion.siguienteAeropuerto();
-            txtIDAeropuerto.setText(String.valueOf(siguiente) );
+            int siguiente = Conexion.siguientePasajero();
+            txtIDPasajero.setText(String.valueOf(siguiente) );
         } catch (SQLException ex) {
-            Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPLPasajeros.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnCosultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCosultarActionPerformed
         ResultSet resultad;
         try {
-            resultad = Conexion.listarAeropuerto();
+            resultad = Conexion.listarPasajero();
             tlbPasajeros.setModel(DbUtils.resultSetToTableModel(resultad));
         } catch (SQLException ex) {
-            Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPLPasajeros.class.getName()).log(Level.SEVERE, null, ex);
 
         }
     }//GEN-LAST:event_btnCosultarActionPerformed
@@ -149,18 +200,18 @@ public class JPLPasajeros extends javax.swing.JPanel {
         //-- Guardar asume guardar nuevo y modificar
 
         //-- Creamos una copia del objeto y le llenamos los datos con el formulario
-        Aeropuertos miAeropuerto = new Aeropuertos();
-        miAeropuerto.setAeropuertoID(Integer.parseInt(txtIDAeropuerto.getText()));
-        miAeropuerto.setCodigoIATA(txtCodigoIATA.getText());
-        miAeropuerto.setNombreAeropuerto(txtNomAeropuerto.getText());
-        miAeropuerto.setCiudad(txtCiudad.getText());
-        miAeropuerto.setPais(txtPais.getText());
+        Pasajeros miPasajero = new Pasajeros();
+        miPasajero.setPasajeroID(Integer.parseInt(txtIDPasajero.getText()));
+        miPasajero.setNumeroDocumento(txtNumeroDoc.getText());
+        miPasajero.setNombreCompleto(txtNomCompleto.getText());
+        miPasajero.setFechaNacimiento(new java.sql.Date(jdcFechaNacimiento.getDate().getTime()));
+        miPasajero.setTelefono(txtTelefono.getText());
         int indice = 0;
 
         try {
-            Aeropuertos Consultada = Conexion.obtenerAeropuerto(txtIDAeropuerto.getText() );
+            Pasajeros Consultada = Conexion.obtenerPasajero(txtIDPasajero.getText() );
             if (Consultada != null){
-                indice = Consultada.getAeropuertoID();
+                indice = Consultada.getPasajeroID();
             }
             else {
                 indice = 0;
@@ -173,8 +224,8 @@ public class JPLPasajeros extends javax.swing.JPanel {
         if (indice == 0){
             try {
 
-                if (Conexion.insertAeropuerto(miAeropuerto) != 0) {
-                    JOptionPane.showMessageDialog(null, "Aeropuerto Guardado" );
+                if (Conexion.insetPasajero(miPasajero) != 0) {
+                    JOptionPane.showMessageDialog(null, "Pasajero Guardado" );
                 }
 
             } catch (SQLException ex) {
@@ -182,8 +233,8 @@ public class JPLPasajeros extends javax.swing.JPanel {
             }
         }else{
             try {
-                if (Conexion.updateAeropuerto(miAeropuerto) != 0) {
-                    JOptionPane.showMessageDialog(null, "Aeropuerto Modificado" );
+                if (Conexion.updatePasajero(miPasajero) != 0) {
+                    JOptionPane.showMessageDialog(null, "Pasajero Modificado" );
                 }
 
             } catch (SQLException ex) {
@@ -197,18 +248,18 @@ public class JPLPasajeros extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         String ID = "";
-        if (  ID.equals(txtIDAeropuerto.getText() ) ){
+        if (  ID.equals(txtIDPasajero.getText() ) ){
             JOptionPane.showMessageDialog(null,
                 "Debe digitar algo en el campo de Identificador",
                 "Mensaje Importante",
                 JOptionPane.ERROR_MESSAGE);
         } else{
             try{
-                if (Conexion.borrarAeropuerto(Integer.parseInt(txtIDAeropuerto.getText())) != 0) {
-                    JOptionPane.showMessageDialog(null, "Aeropuerto Borrado" );
+                if (Conexion.borrarPasajero(Integer.parseInt(txtIDPasajero.getText())) != 0) {
+                    JOptionPane.showMessageDialog(null, "Pasajero Borrado" );
                 }
             }catch (SQLException ex) {
-                Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JPLPasajeros.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         btnCosultar.doClick();
@@ -223,6 +274,16 @@ public class JPLPasajeros extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser jdcFechaNacimiento;
+    private javax.swing.JLabel lblFechaNacimiento;
+    private javax.swing.JLabel lblIDPasajero;
+    private javax.swing.JLabel lblNombreCompleto;
+    private javax.swing.JLabel lblNumeroDoc;
+    private javax.swing.JLabel lblTelefono;
     private javax.swing.JTable tlbPasajeros;
+    private javax.swing.JTextField txtIDPasajero;
+    private javax.swing.JTextField txtNomCompleto;
+    private javax.swing.JTextField txtNumeroDoc;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
