@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import Datos.Aeropuertos;
+import Datos.Reservas;
 
 /**
  *
@@ -69,11 +70,11 @@ public Conexion(){
         int listaafectadas = 0;
         Statement sql = (Statement) Conexion.getConnection().createStatement();
         String insertar = "INSERT INTO Aeropuertos " +
-                                    "VALUES(" + miAeropuerto.getAeropuertoID()+ ", " +
-                                    "'" + miAeropuerto.getCodigoIATA().trim() + "', " +
-                                    "'" + miAeropuerto.getNombreAeropuerto().trim() + "', " +
-                                    "'" + miAeropuerto.getCiudad().trim() + "', " +
-                                    "'" + miAeropuerto.getPais().trim() + ")";
+                                        "VALUES(" + miAeropuerto.getAeropuertoID() + ", '" +
+                                        miAeropuerto.getCodigoIATA().trim() + "', '" +
+                                        miAeropuerto.getNombreAeropuerto().trim() + "', '" +
+                                         miAeropuerto.getCiudad().trim() + "', '" +
+                                            miAeropuerto.getPais().trim() + "')";
         JOptionPane.showConfirmDialog(null, insertar);
        listaafectadas = sql.executeUpdate(insertar);
         return listaafectadas;
@@ -115,7 +116,7 @@ public Conexion(){
                 //crear una variable tipo string
                 String consultas = " SELECT *  " +
                                               " FROM Aeropuertos  "+
-                                              " WHERE AeropuertosID = " + ID;
+                                              " WHERE AeropuertoID = " + ID;
          
                         //ejecutar la consulta y llenar los resultados obtenidos
                         ResultSet rs = sql.executeQuery(consultas);
@@ -170,11 +171,11 @@ public Conexion(){
         int listaafectadas = 0;
         Statement sql = (Statement) Conexion.getConnection().createStatement();
         String insertar = "INSERT INTO Vuelos " +
-                                    "VALUES(" + miVuelo.getVueloID()+ ", " +
-                                    "'" + miVuelo.getNumeroVuelo().trim() + "', " +
-                                    "" + miVuelo.getAeropuertoOrigenID() + ", " +
-                                    "" + miVuelo.getAeropuertoDestinoID() + ", " +
-                                    "'" + miVuelo.getFechaSalida() + ")";
+                                        "VALUES(" + miVuelo.getVueloID() + ", '" +
+                                        miVuelo.getNumeroVuelo().trim() + "', " +
+                                        miVuelo.getAeropuertoOrigenID() + ", " +
+                                        miVuelo.getAeropuertoDestinoID() + ", '" +
+                                        miVuelo.getFechaSalida() + "')";
         JOptionPane.showConfirmDialog(null, insertar);
        listaafectadas = sql.executeUpdate(insertar);
         return listaafectadas;
@@ -365,4 +366,125 @@ public Conexion(){
        listaafectadas = sql.executeUpdate(delete);
         return listaafectadas;
 }
+                  
+ //RESERVAS
+         public static int siguienteReserva() throws SQLException{
+        int resultado = 1;
+         try{
+                Statement sql = (Statement) Conexion.getConnection().createStatement();
+                //crear una variable tipo string
+                String consultas = " SELECT max (ReservaID) as Id_Reserva  " +
+                                              " FROM Reservas  ";
+         
+                        //ejecutar la consulta y llenar los resultados obtenidos
+                        ResultSet rs = sql.executeQuery(consultas);
+                        while (rs.next()){
+                          resultado = (rs.getInt(1)) +1;
+                        }
+                }catch (SQLServerException e){
+                    JOptionPane.showMessageDialog(null, e.toString());
+            }
+        return resultado;
+    }
+        
+        
+          public static int insertReserva(Reservas miReserva) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String insertar = "INSERT INTO Reservas " +
+                                    "VALUES(" + miReserva.getReservaID()+ ", " +
+                                    "" + miReserva.getPasajeroID() + ", " +
+                                    "" + miReserva.getVueloID()+ ", " +
+                                    "'" + miReserva.getFechaReserva()+ "', " +
+                                    "'" + miReserva.getPrecioFinal()+ "')";
+        JOptionPane.showConfirmDialog(null, insertar);
+       listaafectadas = sql.executeUpdate(insertar);
+        return listaafectadas;
+    }
+    
+            public static ResultSet listarReserva () throws SQLException{
+         try{
+            //declarar la conexion a sqlServer
+            Statement sql =(Statement) Conexion.getConnection().createStatement();
+            //crear variable con sentencia o scrip sql
+            String consulta="  Select *  "+
+                                        "  From Reservas ";
+            //ejecutar la consulta y llenar una estructura con el o los resultados obtenidos
+            ResultSet rs = sql.executeQuery(consulta); 
+            return rs;
+        }catch (SQLServerException e){
+            JOptionPane.showMessageDialog(null, e.toString() );
+            return null;
+        }
+    }
+            
+    public static int updateReserva (Reservas miReserva) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String update = " update Reservas  " +
+                                   " set FechaReserva =  '" + miReserva.getFechaReserva()+"', "+ 
+                                    "  PrecioFinal = "+miReserva.getPrecioFinal()+"' "+
+                                   " WHERE ReservaID = " + miReserva.getReservaID();
+
+        JOptionPane.showConfirmDialog(null,update);
+       listaafectadas = sql.executeUpdate(update);
+        return listaafectadas;
+    }
+    
+     public static Reservas obtenerReserva (String ID) throws SQLException{
+        try{
+                Statement sql = (Statement) Conexion.getConnection().createStatement();
+                //crear una variable tipo string
+                String consultas = " SELECT *  " +
+                                              " FROM Reservas  "+
+                                              " WHERE ReservaID = " + ID;
+         
+                        //ejecutar la consulta y llenar los resultados obtenidos
+                        ResultSet rs = sql.executeQuery(consultas);
+                        Reservas Encontrado = new Reservas();
+                        while (rs.next()){
+                          Encontrado.setReservaID(rs.getInt(1));
+                          Encontrado.setPasajeroID(rs.getInt(2));
+                          Encontrado.setVueloID(rs.getInt(3));
+                          Encontrado.setFechaReserva(rs.getDate(4));
+                          Encontrado.setPrecioFinal(rs.getString(5));
+                        }
+                        return Encontrado;
+                }catch (SQLServerException e){
+                    JOptionPane.showMessageDialog(null, e.toString());
+                    return  null;
+            }
+    }
+                  public static int borrarReserva(int ID) throws SQLException{
+        int listaafectadas = 0;
+        Statement sql = (Statement) Conexion.getConnection().createStatement();
+        String delete = " delete from Reservas  " +
+                                   " WHERE ReservaID = " + ID;
+
+        JOptionPane.showConfirmDialog(null,delete);
+       listaafectadas = sql.executeUpdate(delete);
+        return listaafectadas;
+}
+        
+                          
+  public static String nombrePasajero (int ID) throws  SQLException{
+            String resul="";
+            //SQL requiere el uso de try y catch
+            try{
+                Statement sql = (Statement) Conexion.getConnection().createStatement();
+                //crear una variable tipo string
+                String consultas = "  Select  NombreCompleto  "+
+                                                  "  From Pasajeros  "+
+                                                  "  Where PasajerosID= "+ID;
+                        //ejecutar la consulta y llenar los resultados obtenidos
+                        ResultSet rs = sql.executeQuery(consultas);
+                        while (rs.next()){
+                          //resul = Integer.valueOf(rs.getString(1) );
+                          resul = rs.getString(1);
+                        }
+                }catch (SQLServerException e){
+                    JOptionPane.showMessageDialog(null, e.toString());
+            }
+            return resul;
+    }
 }

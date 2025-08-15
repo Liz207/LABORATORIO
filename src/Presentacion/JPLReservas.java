@@ -12,27 +12,28 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import  java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
-import Datos.Aeropuertos;
-import Datos.Principal;
+import Datos.Pasajeros;
+import Datos.Reservas;
+import Datos.Vuelos;
 /**
  *
  * @author irvin
  */
-public class JPLAeropuertos extends javax.swing.JPanel {
+public class JPLReservas extends javax.swing.JPanel {
 
     /**
-     * Creates new form JPLAeropuertos
+     * Creates new form JPLReservas
      */
-    public JPLAeropuertos() {
+    public JPLReservas() {
         initComponents();
     }
-            private void limpiar()
+    private void limpiar()
     {
-        txtIDAeropuerto.setText("");
-        txtCodigoIATA.setText("");
-        txtNomAeropuerto.setText("");
-        txtCiudad.setText("");
-        txtPais.setText("");
+        txtIDReserva.setText("");
+        txtFkPasajero.setText("");
+        txtFKVuelo.setText("");
+        txtPrecioFinal.setText("");
+        jdcFechaReserva.setDate(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,17 +50,18 @@ public class JPLAeropuertos extends javax.swing.JPanel {
         btnGuardar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tlbAeropuerto = new javax.swing.JTable();
-        lblIDAeropuerto = new javax.swing.JLabel();
-        lblCodIATA = new javax.swing.JLabel();
-        lblNomAeropuerto = new javax.swing.JLabel();
-        lblCiudad = new javax.swing.JLabel();
-        lblPais = new javax.swing.JLabel();
-        txtIDAeropuerto = new javax.swing.JTextField();
-        txtCodigoIATA = new javax.swing.JTextField();
-        txtNomAeropuerto = new javax.swing.JTextField();
-        txtCiudad = new javax.swing.JTextField();
-        txtPais = new javax.swing.JTextField();
+        tlbReservas = new javax.swing.JTable();
+        lblIDReserva = new javax.swing.JLabel();
+        lblFkPasajero = new javax.swing.JLabel();
+        lblFkVuelo = new javax.swing.JLabel();
+        lblFechaReserva = new javax.swing.JLabel();
+        lblPrecioFinal = new javax.swing.JLabel();
+        txtIDReserva = new javax.swing.JTextField();
+        txtFkPasajero = new javax.swing.JTextField();
+        txtNomPasajero = new javax.swing.JTextField();
+        txtFKVuelo = new javax.swing.JTextField();
+        txtPrecioFinal = new javax.swing.JTextField();
+        jdcFechaReserva = new com.toedter.calendar.JDateChooser();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -113,82 +115,79 @@ public class JPLAeropuertos extends javax.swing.JPanel {
         });
         add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 110, 27));
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScrollPane1.setFont(new java.awt.Font("Hauser", 0, 12)); // NOI18N
-
-        tlbAeropuerto.setModel(new javax.swing.table.DefaultTableModel(
+        tlbReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID_AEROPUERTO", "CODIGO IATA", "NOMBRE", "CIUDAD", "PAIS"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tlbAeropuerto);
+        jScrollPane1.setViewportView(tlbReservas);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 710, 140));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 610, 140));
 
-        lblIDAeropuerto.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
-        lblIDAeropuerto.setText("IDENTIFICADOR AEROPUERTO");
-        add(lblIDAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 118, -1, 30));
+        lblIDReserva.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblIDReserva.setText("IDENTIFICADOR RESERVA");
+        add(lblIDReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, 30));
 
-        lblCodIATA.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
-        lblCodIATA.setText("CODIGO IATA");
-        add(lblCodIATA, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 198, -1, 30));
+        lblFkPasajero.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblFkPasajero.setText("IDENTIFICADOR PASAJERO");
+        add(lblFkPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, 30));
 
-        lblNomAeropuerto.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
-        lblNomAeropuerto.setText("NOMBRE AEROPUERTO");
-        add(lblNomAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, 40));
+        lblFkVuelo.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblFkVuelo.setText("IDENTIFICADOR VUELO");
+        add(lblFkVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, -1, 30));
 
-        lblCiudad.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
-        lblCiudad.setText("CIUDAD");
-        add(lblCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 308, -1, 30));
+        lblFechaReserva.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblFechaReserva.setText("FECHA RESERVA");
+        add(lblFechaReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, 30));
 
-        lblPais.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
-        lblPais.setText("PAIS");
-        add(lblPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 40, 30));
+        lblPrecioFinal.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
+        lblPrecioFinal.setText("PRECIO FINAL");
+        add(lblPrecioFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, 30));
 
-        txtIDAeropuerto.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
-        txtIDAeropuerto.addActionListener(new java.awt.event.ActionListener() {
+        txtIDReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDAeropuertoActionPerformed(evt);
+                txtIDReservaActionPerformed(evt);
             }
         });
-        add(txtIDAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 110, -1));
+        add(txtIDReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 110, 30));
 
-        txtCodigoIATA.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
-        add(txtCodigoIATA, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 110, -1));
+        txtFkPasajero.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFkPasajeroFocusLost(evt);
+            }
+        });
+        add(txtFkPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 110, 30));
 
-        txtNomAeropuerto.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
-        add(txtNomAeropuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 110, -1));
-
-        txtCiudad.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
-        add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 110, -1));
-
-        txtPais.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
-        add(txtPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 110, -1));
+        txtNomPasajero.setEditable(false);
+        add(txtNomPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 110, 30));
+        add(txtFKVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 110, 30));
+        add(txtPrecioFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, 110, 30));
+        add(jdcFechaReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 130, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         String ID = "";
-        if (  ID.equals(txtIDAeropuerto.getText() ) ){
+        if (  ID.equals(txtIDReserva.getText() ) ){
             JOptionPane.showMessageDialog(null,
                 "Debe digitar algo en el campo de Identificador",
                 "Mensaje Importante",
                 JOptionPane.ERROR_MESSAGE);
         } else{
             try{
-                Aeropuertos miAeropuerto = Conexion.obtenerAeropuerto(txtIDAeropuerto.getText() );
-                txtCodigoIATA.setText(miAeropuerto.getCodigoIATA());
-                txtNomAeropuerto.setText(miAeropuerto.getNombreAeropuerto());
-                txtCiudad.setText(miAeropuerto.getCodigoIATA());
-                txtPais.setText(miAeropuerto.getPais());
+                Reservas miReserva = Conexion.obtenerReserva(txtIDReserva.getText() );
+                txtFkPasajero.setText(String.valueOf(miReserva.getPasajeroID()));
+                txtFKVuelo.setText(String.valueOf(miReserva.getVueloID()));
+                jdcFechaReserva.setDate(new java.util.Date(miReserva.getFechaReserva().getTime()));
+                txtPrecioFinal.setText(miReserva.getPrecioFinal());
             }catch (SQLException ex){
-                Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JPLPasajeros.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -196,20 +195,20 @@ public class JPLAeropuertos extends javax.swing.JPanel {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         try {
-            int siguiente = Conexion.siguienteAeropuerto();
-            txtIDAeropuerto.setText(String.valueOf(siguiente) );
+            int siguiente = Conexion.siguienteReserva();
+            txtIDReserva.setText(String.valueOf(siguiente) );
         } catch (SQLException ex) {
-            Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPLReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnCosultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCosultarActionPerformed
         ResultSet resultad;
         try {
-            resultad = Conexion.listarAeropuerto();
-            tlbAeropuerto.setModel(DbUtils.resultSetToTableModel(resultad));
+            resultad = Conexion.listarReserva();
+            tlbReservas.setModel(DbUtils.resultSetToTableModel(resultad));
         } catch (SQLException ex) {
-            Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPLReservas.class.getName()).log(Level.SEVERE, null, ex);
 
         }
     }//GEN-LAST:event_btnCosultarActionPerformed
@@ -219,18 +218,18 @@ public class JPLAeropuertos extends javax.swing.JPanel {
         //-- Guardar asume guardar nuevo y modificar
 
         //-- Creamos una copia del objeto y le llenamos los datos con el formulario
-        Aeropuertos miAeropuerto = new Aeropuertos();
-        miAeropuerto.setAeropuertoID(Integer.parseInt(txtIDAeropuerto.getText()));
-        miAeropuerto.setCodigoIATA(txtCodigoIATA.getText());
-        miAeropuerto.setNombreAeropuerto(txtNomAeropuerto.getText());
-        miAeropuerto.setCiudad(txtCiudad.getText());
-        miAeropuerto.setPais(txtPais.getText());
+        Reservas miReserva = new Reservas();
+        miReserva.setReservaID(Integer.parseInt(txtIDReserva.getText()));
+        miReserva.setPasajeroID(Integer.parseInt(txtFkPasajero.getText()));
+        miReserva.setVueloID(Integer.parseInt(txtFKVuelo.getText()));
+        miReserva.setFechaReserva(new java.sql.Date(jdcFechaReserva.getDate().getTime()));
+        miReserva.setPrecioFinal(txtPrecioFinal.getText());
         int indice = 0;
 
         try {
-            Aeropuertos Consultada = Conexion.obtenerAeropuerto(txtIDAeropuerto.getText() );
+            Reservas Consultada = Conexion.obtenerReserva(txtIDReserva.getText() );
             if (Consultada != null){
-                indice = Consultada.getAeropuertoID();
+                indice = Consultada.getReservaID();
             }
             else {
                 indice = 0;
@@ -243,8 +242,8 @@ public class JPLAeropuertos extends javax.swing.JPanel {
         if (indice == 0){
             try {
 
-                if (Conexion.insertAeropuerto(miAeropuerto) != 0) {
-                    JOptionPane.showMessageDialog(null, "Aeropuerto Guardado" );
+                if (Conexion.insertReserva(miReserva) != 0) {
+                    JOptionPane.showMessageDialog(null, "Reserva Guardada" );
                 }
 
             } catch (SQLException ex) {
@@ -252,8 +251,8 @@ public class JPLAeropuertos extends javax.swing.JPanel {
             }
         }else{
             try {
-                if (Conexion.updateAeropuerto(miAeropuerto) != 0) {
-                    JOptionPane.showMessageDialog(null, "Aeropuerto Modificado" );
+                if (Conexion.updateReserva(miReserva) != 0) {
+                    JOptionPane.showMessageDialog(null, "Reserva Modificada" );
                 }
 
             } catch (SQLException ex) {
@@ -267,27 +266,36 @@ public class JPLAeropuertos extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         String ID = "";
-        if (  ID.equals(txtIDAeropuerto.getText() ) ){
+        if (  ID.equals(txtIDReserva.getText() ) ){
             JOptionPane.showMessageDialog(null,
                 "Debe digitar algo en el campo de Identificador",
                 "Mensaje Importante",
                 JOptionPane.ERROR_MESSAGE);
         } else{
             try{
-                if (Conexion.borrarAeropuerto(Integer.parseInt(txtIDAeropuerto.getText())) != 0) {
-                    JOptionPane.showMessageDialog(null, "Aeropuerto Borrado" );
+                if (Conexion.borrarReserva(Integer.parseInt(txtIDReserva.getText())) != 0) {
+                    JOptionPane.showMessageDialog(null, "Reserva Borrada" );
                 }
             }catch (SQLException ex) {
-                Logger.getLogger(JPLAeropuertos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JPLReservas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         btnCosultar.doClick();
         limpiar();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
-    private void txtIDAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDAeropuertoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDAeropuertoActionPerformed
+    private void txtIDReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDReservaActionPerformed
+
+    }//GEN-LAST:event_txtIDReservaActionPerformed
+
+    private void txtFkPasajeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFkPasajeroFocusLost
+                 int ID = Integer.parseInt(txtFkPasajero.getText());       
+        try{
+            txtNomPasajero.setText(Conexion.nombrePasajero(ID));
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }//GEN-LAST:event_txtFkPasajeroFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -297,16 +305,17 @@ public class JPLAeropuertos extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCiudad;
-    private javax.swing.JLabel lblCodIATA;
-    private javax.swing.JLabel lblIDAeropuerto;
-    private javax.swing.JLabel lblNomAeropuerto;
-    private javax.swing.JLabel lblPais;
-    private javax.swing.JTable tlbAeropuerto;
-    private javax.swing.JTextField txtCiudad;
-    private javax.swing.JTextField txtCodigoIATA;
-    private javax.swing.JTextField txtIDAeropuerto;
-    private javax.swing.JTextField txtNomAeropuerto;
-    private javax.swing.JTextField txtPais;
+    private com.toedter.calendar.JDateChooser jdcFechaReserva;
+    private javax.swing.JLabel lblFechaReserva;
+    private javax.swing.JLabel lblFkPasajero;
+    private javax.swing.JLabel lblFkVuelo;
+    private javax.swing.JLabel lblIDReserva;
+    private javax.swing.JLabel lblPrecioFinal;
+    private javax.swing.JTable tlbReservas;
+    private javax.swing.JTextField txtFKVuelo;
+    private javax.swing.JTextField txtFkPasajero;
+    private javax.swing.JTextField txtIDReserva;
+    private javax.swing.JTextField txtNomPasajero;
+    private javax.swing.JTextField txtPrecioFinal;
     // End of variables declaration//GEN-END:variables
 }

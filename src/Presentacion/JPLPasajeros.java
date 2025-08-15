@@ -112,6 +112,9 @@ public class JPLPasajeros extends javax.swing.JPanel {
         });
         add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 110, 27));
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPane1.setFont(new java.awt.Font("Hauser", 0, 12)); // NOI18N
+
         tlbPasajeros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -125,7 +128,7 @@ public class JPLPasajeros extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tlbPasajeros);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 610, 140));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 710, 140));
 
         lblNumeroDoc.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
         lblNumeroDoc.setText("NUMERO DOCUMENTO");
@@ -146,10 +149,20 @@ public class JPLPasajeros extends javax.swing.JPanel {
         lblIDPasajero.setFont(new java.awt.Font("Racer", 0, 18)); // NOI18N
         lblIDPasajero.setText("IDENTIFICADOR PASAJERO");
         add(lblIDPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 30));
+
+        txtIDPasajero.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
         add(txtIDPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 82, 120, 30));
+
+        txtNumeroDoc.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
         add(txtNumeroDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 142, 120, 30));
+
+        txtNomCompleto.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
         add(txtNomCompleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 192, 120, 30));
+
+        jdcFechaNacimiento.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
         add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, 130, 30));
+
+        txtTelefono.setFont(new java.awt.Font("Stainless Black", 0, 12)); // NOI18N
         add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 312, 120, 30));
     }// </editor-fold>//GEN-END:initComponents
 

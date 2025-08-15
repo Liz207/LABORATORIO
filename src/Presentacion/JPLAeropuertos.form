@@ -124,12 +124,22 @@
       </Constraints>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+            <BevelBorder/>
+          </Border>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Hauser" size="12" style="0"/>
+        </Property>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="70" y="410" width="610" height="140"/>
+          <AbsoluteConstraints x="10" y="410" width="710" height="140"/>
         </Constraint>
       </Constraints>
 
@@ -138,11 +148,12 @@
         <Component class="javax.swing.JTable" name="tlbAeropuerto">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+              <Table columnCount="5" rowCount="4">
+                <Column editable="true" title="ID_AEROPUERTO" type="java.lang.Object"/>
+                <Column editable="true" title="CODIGO IATA" type="java.lang.Object"/>
+                <Column editable="true" title="NOMBRE" type="java.lang.Object"/>
+                <Column editable="true" title="CIUDAD" type="java.lang.Object"/>
+                <Column editable="true" title="PAIS" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
@@ -215,6 +226,11 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIDAeropuerto">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Stainless Black" size="12" style="0"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIDAeropuertoActionPerformed"/>
       </Events>
@@ -225,6 +241,11 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigoIATA">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Stainless Black" size="12" style="0"/>
+        </Property>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="330" y="190" width="110" height="-1"/>
@@ -232,6 +253,11 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNomAeropuerto">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Stainless Black" size="12" style="0"/>
+        </Property>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="330" y="270" width="110" height="-1"/>
@@ -239,6 +265,11 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCiudad">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Stainless Black" size="12" style="0"/>
+        </Property>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="340" y="310" width="110" height="-1"/>
@@ -246,6 +277,11 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPais">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Stainless Black" size="12" style="0"/>
+        </Property>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="310" y="360" width="110" height="-1"/>
