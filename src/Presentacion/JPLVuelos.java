@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import  java.sql.ResultSet;
-import net.proteanit.sql.DbUtils;
+import Datos.TablaResultados;
 import Datos.Aeropuertos;
 import Datos.Vuelos;
 /**
@@ -209,7 +209,7 @@ public class JPLVuelos extends javax.swing.JPanel {
         ResultSet resultad;
         try {
             resultad = Conexion.listarVuelo();
-            tlbVuelos.setModel(DbUtils.resultSetToTableModel(resultad));
+            tlbVuelos.setModel(TablaResultados.resultSetToTableModel(resultad));
         } catch (SQLException ex) {
             Logger.getLogger(JPLVuelos.class.getName()).log(Level.SEVERE, null, ex);
 
