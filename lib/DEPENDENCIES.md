@@ -1,0 +1,6 @@
+# Dependencias locales
+
+Artefactos originales de Maven Central, con versiones fijadas para este proyecto Ant. Los POM y los avisos de licencia incluidos por cada distribuidor se conservan junto a sus JAR. No necesitan rutas del equipo original.
+
+- `mssql-jdbc-12.10.1.jre11.jar`
+- `jcalendar-1.4.jar`

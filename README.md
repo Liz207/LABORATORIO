@@ -143,3 +143,26 @@ Los resultados se muestran en pantalla.
 ![Imagen de WhatsApp 2025-08-14 a las 20 53 56_4d092f0b](https://github.com/user-attachments/assets/f3607d98-60a0-46ce-8f20-c8653bc2c538)
 ![Imagen de WhatsApp 2025-08-14 a las 20 56 03_653c8607](https://github.com/user-attachments/assets/812b374b-1c00-4448-a33e-a862371275fe)
 ![Imagen de WhatsApp 2025-08-14 a las 20 57 04_fa5ec415](https://github.com/user-attachments/assets/bc8b6fd2-ef92-4164-9a1f-a487d339f5d3)
+
+<!-- build-repairs-20261115:start -->
+## Reparación y comprobación — 2026-11-15
+
+- Se incluyeron JDBC de SQL Server y JCalendar con versiones fijadas.
+- La conversión JDBC a TableModel usa una utilidad local, sustituyendo la dependencia rs2xml ausente.
+
+Comprobado:
+
+- Compila con Ant/JDK 24.
+
+Comandos:
+
+```powershell
+.\build-local.ps1
+.\build-local.ps1 -Target run
+```
+
+Alcance pendiente:
+
+- Se necesita configurar SQL Server y sus tablas para probar pasajeros, aeropuertos, reservas y vuelos.
+
+<!-- build-repairs-20261115:end -->

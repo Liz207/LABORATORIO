@@ -22,9 +22,32 @@ Inventario y compilaciones locales del 2026-11-15. Una compilación correcta no 
 
 | Componente | Tipo / destino | Validación |
 | --- | --- | --- |
-| [build.xml](<build.xml>) | netbeans-ant / 24 | Bloqueado: com.microsoft.sqlserver.jdbc, net.proteanit.sql, com.toedter.calendar |
+| [build.xml](<build.xml>) | netbeans-ant / 24 | Compila; comprobado el 2026-11-15; ver alcance actualizado abajo |
 
 ## Archivos ignorados
 
 `.gitignore` excluye credenciales locales, estado del editor y salidas de las herramientas detectadas. No deja de versionar archivos que ya estaban en Git. Los manifiestos, archivos de bloqueo, recursos fuente y scripts de esquema forman parte del código.
 <!-- local-development:end -->
+
+<!-- build-repairs-20261115:start -->
+## Reparación y comprobación — 2026-11-15
+
+- Se incluyeron JDBC de SQL Server y JCalendar con versiones fijadas.
+- La conversión JDBC a TableModel usa una utilidad local, sustituyendo la dependencia rs2xml ausente.
+
+Comprobado:
+
+- Compila con Ant/JDK 24.
+
+Comandos:
+
+```powershell
+.\build-local.ps1
+.\build-local.ps1 -Target run
+```
+
+Alcance pendiente:
+
+- Se necesita configurar SQL Server y sus tablas para probar pasajeros, aeropuertos, reservas y vuelos.
+
+<!-- build-repairs-20261115:end -->

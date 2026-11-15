@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import  java.sql.ResultSet;
-import net.proteanit.sql.DbUtils;
+import Datos.TablaResultados;
 import Datos.Pasajeros;
 import Datos.Reservas;
 import Datos.Vuelos;
@@ -206,7 +206,7 @@ public class JPLReservas extends javax.swing.JPanel {
         ResultSet resultad;
         try {
             resultad = Conexion.listarReserva();
-            tlbReservas.setModel(DbUtils.resultSetToTableModel(resultad));
+            tlbReservas.setModel(TablaResultados.resultSetToTableModel(resultad));
         } catch (SQLException ex) {
             Logger.getLogger(JPLReservas.class.getName()).log(Level.SEVERE, null, ex);
 

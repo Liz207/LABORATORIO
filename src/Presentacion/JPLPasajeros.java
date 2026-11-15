@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import  java.sql.ResultSet;
-import net.proteanit.sql.DbUtils;
+import Datos.TablaResultados;
 import Datos.Pasajeros;
 /**
  *
@@ -201,7 +201,7 @@ public class JPLPasajeros extends javax.swing.JPanel {
         ResultSet resultad;
         try {
             resultad = Conexion.listarPasajero();
-            tlbPasajeros.setModel(DbUtils.resultSetToTableModel(resultad));
+            tlbPasajeros.setModel(TablaResultados.resultSetToTableModel(resultad));
         } catch (SQLException ex) {
             Logger.getLogger(JPLPasajeros.class.getName()).log(Level.SEVERE, null, ex);
 
